@@ -32,8 +32,9 @@ class Main:
         df_processed = preprocessor.preprocess_features()
         print(f"[INFO] {problem_type} için özellik mühendisliği tamamlandı.")
 
+
         # Model eğitimi ve kümeleme
-        trainer = training.Training(df_processed)
+        trainer = training.Training(df_processed, problem_type)
         clustered_df, dbscan_model = trainer.train_model(feature_columns)
 
         # Modeli ve sonuçları kaydet
@@ -44,8 +45,7 @@ class Main:
         print(f"[INFO] Sonuçlar kaydedildi: {output_filename}")
 
         # DBSCAN ile kümeleme tamamlandıktan sonra
-        visualizer = visualization.Visualization(clustered_df)
-
+        visualizer = visualization.Visualization(clustered_df, problem_type)
         # Özelleştirilmiş parametrelerle plot_clusters fonksiyonunu çağırıyoruz.
         visualizer.plot_clusters(x_col=x_col, y_col=y_col, cluster_col='cluster', title=f'{problem_type} Kümeleme')
 
