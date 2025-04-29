@@ -3,10 +3,10 @@ import matplotlib
 matplotlib.use("Agg")
 
 class Visualization:
-    def __init__(self, df):
+    def __init__(self, df, problem_type):
         self.df = df
-
-    def show_optimal_eps(self, distances, optimal_eps, kneedle, min_samples):
+        self.problem_type = problem_type
+    def show_optimal_eps(self, distances, optimal_eps, kneedle, min_samples,problem_type):
         try:
             plt.figure(figsize=(10, 6))
             plt.plot(distances, label=f'{min_samples}-th NN Distances')
@@ -18,7 +18,7 @@ class Visualization:
             plt.legend()
             plt.grid(True)
             plt.tight_layout()
-            plt.savefig("outputs/visualization_plot.png")
+            plt.savefig(f"outputs/{problem_type}_eps_plot.png")
             plt.close()
 
         except Exception as e:
@@ -47,7 +47,7 @@ class Visualization:
             plt.grid(True)
             plt.colorbar(scatter, label='Küme No')
             plt.tight_layout()
-            plt.savefig("outputs/visualization_cluster_plot.png")
+            plt.savefig(f"outputs/{self.problem_type}_clusters_plot.png")
             plt.close()
 
         except Exception as e:
