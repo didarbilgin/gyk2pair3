@@ -11,6 +11,6 @@ class DbConnection:
         self.db_port = os.getenv("DB_PORT", "5432")
         self.db_name = os.getenv("DB_NAME")
 
-        self.DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+        self.DATABASE_URL = f"postgresql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
         
         
