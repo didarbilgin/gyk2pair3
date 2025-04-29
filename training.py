@@ -13,9 +13,9 @@ matplotlib.use("Agg")  # GUI backend yerine dosya çıktısı alınmasını sağ
 
 
 class Training:
-    def __init__(self, df):
+    def __init__(self, df, problem_type):
         self.df = df
-
+        self.problem_type = problem_type
     def find_optimal_eps(self, X_scaled, min_samples):
         """
         K-distance grafiğiyle optimal eps belirleme.
@@ -31,7 +31,7 @@ class Training:
             optimal_eps = distances[kneedle.elbow] if kneedle.elbow is not None else distances[-1]  # Son mesafe değeri
 
             # EPS grafiğini göster
-            visualization.Visualization(self.df).show_optimal_eps(distances, optimal_eps, kneedle, min_samples)
+            visualization.Visualization(self.df, self.problem_type).show_optimal_eps(distances, optimal_eps, kneedle, min_samples, self.problem_type)
 
             return optimal_eps
         except ValueError as e:
@@ -78,7 +78,7 @@ class Training:
                 plt.ylabel('min_samples')
                 plt.title('DBSCAN Parametre Optimizasyonu (Silhouette Score)')
                 plt.grid(True)
-                plt.savefig("outputs/training_plot.png")  # veya uygun bir isim
+                plt.savefig(f"outputs/{self.problem_type}_silhouette_plot.png")
                 plt.close()
 
             except Exception as e:
